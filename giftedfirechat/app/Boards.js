@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-native'
 import firebase from 'firebase';
+import BoardList from './BoardList'
 
 import {
   StyleSheet,
@@ -52,14 +53,7 @@ export default class Boards extends Component {
   render() {
     return (
       <View>
-        <Text>Boards</Text>
-        <ScrollView>
-          {this.state.boards.map((board) => {
-            return <View key={board.key}>
-              <Link to={'/b/' + board.key}><Text>{board.name}</Text></Link>
-            </View>
-          })}
-        </ScrollView>
+        <BoardList boards={this.state.boards} />
       </View>
     );
   }

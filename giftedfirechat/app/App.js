@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { NativeRouter, Link } from 'react-router-native'
 import { Navigation, Card } from 'react-router-navigation'
+import { Tabs, Tab } from 'react-router-navigation'
 import Boards from './Boards'
 import Chat from './Chat'
+import Splash from './Splash'
 import {
   StyleSheet,
   View,
@@ -15,18 +17,23 @@ export default class App extends Component {
     this.firebaseRef = props.firebaseApp.database().ref();
   }
 
+  setName(name) {
+    this.setState({ user: name });
+  }
+
   render() {
     return <NativeRouter>
       <Navigation>
         <Card
           exact
           path="/"
-          render={this.Welcome}
+          setName={this.setName}
+          component={Splash}
         />
         <Card
           path="/boards"
           firebaseRef={this.firebaseRef}
-          component={Boards}
+          render={this.BoardTabs}
         />
         <Card
           path="/b/:boardKey"
@@ -37,11 +44,12 @@ export default class App extends Component {
     </NativeRouter>
   }
 
-  Welcome = () => {
-    return <View style={styles.container}><Link to="/boards">
-      <Text>Sign In!</Text>
-    </Link>
-    </View>
+  BoardTabs = (props) => {
+    return <Tabs>
+      <Tab path="/in" firebaseRef={props.firebaseRef} component={Boards} />
+      <Tab path="/" firebaseRef={props.firebaseRef} component={Boards} />
+      <Tab path="/mine" firebaseRef={props.firebaseRef} component={Boards} />
+    </Tabs>
   }
 }
 
@@ -50,7 +58,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
-
+    alignItems: 'center'
   }
 });
