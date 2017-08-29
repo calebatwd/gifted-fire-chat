@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { GiftedChat } from 'react-native-gifted-chat';
+import { Link } from 'react-router-native'
 import firebase from 'firebase';
 
 import {
@@ -9,10 +9,10 @@ import {
   ScrollView
 } from 'react-native';
 
-export default class Example extends Component {
+export default class Boards extends Component {
   constructor(props) {
     super(props);
-    this.boardsRef = props.firebaseApp.database().ref();
+    this.boardsRef = props.firebaseRef.child('boards');
   }
 
   componentWillMount() {
@@ -51,13 +51,16 @@ export default class Example extends Component {
 
   render() {
     return (
-      <ScrollView>
-        {this.state.boards.map((board) => {
-          return <View key={board.key}>
-            <Text>{board.name}</Text>
-          </View>
-        })}
-      </ScrollView>
+      <View>
+        <Text>Boards</Text>
+        <ScrollView>
+          {this.state.boards.map((board) => {
+            return <View key={board.key}>
+              <Link to={'/b/' + board.key}><Text>{board.name}</Text></Link>
+            </View>
+          })}
+        </ScrollView>
+      </View>
     );
   }
 }

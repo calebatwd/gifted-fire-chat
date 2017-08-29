@@ -24,7 +24,7 @@ export default class giftedfirechat extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <App />
+        <App firebaseApp={firebaseApp} />
       </View>
     );
   }

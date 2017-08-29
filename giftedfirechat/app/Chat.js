@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { GiftedChat } from 'react-native-gifted-chat';
 import firebase from 'firebase';
 
-export default class Example extends Component {
+export default class Chat extends Component {
   constructor(props) {
     super(props);
-    this.messagesRef = props.firebaseApp.database().ref();
+    this.messagesRef = props.firebaseRef.child('boards/' + props.match.params.boardKey + '/messages');
   }
 
   componentWillMount() {
