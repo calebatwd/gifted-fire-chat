@@ -5,9 +5,9 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { BoardsNavBar } from './BoardsNavBar'
 
 import {
+  Platform,
   View,
   Text,
-  Platform,
   ScrollView,
   TouchableOpacity,
   StyleSheet,
@@ -55,6 +55,7 @@ export default class BoardsScreen extends Component {
   }
 
   render() {
+    console.log(this.props)
     return (
       <View style={styles.container}>
         <BoardsNavBar banner={'Boards'} navigation={this.props.navigation} />
@@ -63,11 +64,17 @@ export default class BoardsScreen extends Component {
             return <View key={board.key}>
               <TouchableHighlight style={styles.item}
                 onPress={() => {
-                  this.props.navigation.navigate('BoardView',
-                    {
-                      name: board.name,
-                      key: board.key
-                    })
+                  const navigationAction = NavigationActions.navigate({
+                    routeName: 'Stacks',
+                    action: NavigationActions.navigate({
+                      routeName: 'BoardView',
+                      params: {
+                        name: board.name,
+                        key: board.key
+                      }
+                    }),
+                  });
+                  this.props.navigation.dispatch(navigationAction);
                 }}>
                 <View>
                   <Text style={styles.title}>{board.name}</Text>

@@ -4,12 +4,12 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { CoreNavBar } from './CoreNavBar'
 
 import {
+  Platform,
   View,
   Text,
   ScrollView,
   TouchableOpacity,
   StyleSheet,
-  Platform,
   Button,
   TouchableHighlight,
   TextInput

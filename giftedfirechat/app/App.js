@@ -12,11 +12,6 @@ import ProfileScreen from './ProfileScreen'
 import SettingsScreen from './SettingsScreen'
 import Hidden from './Hidden'
 
-import {
-  StyleSheet,
-  Platform
-} from 'react-native';
-
 const SubNavigator = StackNavigator({
   SignIn: {
     path: './signin',
@@ -59,7 +54,7 @@ const FullNavigator = DrawerNavigator({
   },
   Stacks: {
     path: './stacks',
-    screen: ({ navigation, screenProps }) => <SubNavigator screenProps={{ ...screenProps, rootNavigation: navigation }} />,
+    screen: SubNavigator,
     navigationOptions: {
       drawerLabel: <Hidden />
     }
@@ -77,10 +72,3 @@ export default class App extends Component {
     return <FullNavigator screenProps={this.props} />
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    marginTop: Platform.OS === 'ios' ? 20 : 0,
-    flex: 1
-  }
-});

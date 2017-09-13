@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { NavigationActions } from 'react-navigation';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {
-  View,
   Platform,
+  View,
   Text,
   TouchableOpacity,
   StyleSheet,
@@ -26,13 +26,7 @@ export default class SignInScreen extends Component {
     this.props.screenProps.firebaseApp.auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {
-        const resetAction = NavigationActions.reset({
-          index: 0,
-          actions: [
-            NavigationActions.navigate({ routeName: 'MainMenu' })
-          ]
-        })
-        this.props.screenProps.rootNavigation.navigate('BoardList');
+        this.props.navigation.navigate('BoardList');
       })
       .catch((error) => {
         console.log(error);

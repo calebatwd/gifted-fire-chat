@@ -3,7 +3,6 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {
   View,
   Text,
-  Platform,
   TouchableOpacity,
   StyleSheet,
   TouchableHighlight

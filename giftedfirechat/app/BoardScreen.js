@@ -4,7 +4,9 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Chat from './Chat'
 
 import {
-  StyleSheet
+  Platform,
+  StyleSheet,
+  View
 } from 'react-native';
 
 export default class BoardScreen extends Component {
@@ -13,12 +15,18 @@ export default class BoardScreen extends Component {
   });
   render() {
     return (
-      <Chat
-        boardRef={this.props.screenProps.firebaseRef.child('boards/' + this.props.navigation.state.params.key)}
-        user={this.props.screenProps.firebaseApp.auth().currentUser} />
+      <View style={styles.container}>
+        <Chat
+          boardRef={this.props.screenProps.firebaseRef.child('boards/' + this.props.navigation.state.params.key)}
+          user={this.props.screenProps.firebaseApp.auth().currentUser} />
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    marginTop: Platform.OS === 'ios' ? 20 : 0,
+    flex: 1
+  }
 });

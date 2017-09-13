@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { NavigationActions } from 'react-navigation'
+import firebase from 'firebase'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
 import {
+  Platform,
   View,
   Text,
   TouchableOpacity,
@@ -52,7 +55,7 @@ export default class NewBoardScreen extends Component {
   }
 
   render() {
-    return <View>
+    return <View style={styles.container}>
       <TextInput
         style={styles.textInput}
         placeholder="Give your board a name..."
@@ -64,6 +67,10 @@ export default class NewBoardScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    marginTop: Platform.OS === 'ios' ? 20 : 0,
+    flex: 1
+  },
   textInput: {
     height: 50,
     width: 250,

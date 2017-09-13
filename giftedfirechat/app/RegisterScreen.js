@@ -3,11 +3,11 @@ import { NavigationActions } from 'react-navigation';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import {
+  Platform,
   View,
   Text,
   TouchableOpacity,
   StyleSheet,
-  Platform,
   Button,
   TouchableHighlight,
   TextInput
@@ -67,5 +67,5 @@ const styles = StyleSheet.create({
   container: {
     marginTop: Platform.OS === 'ios' ? 20 : 0,
     flex: 1
-  }
+  },
 });
