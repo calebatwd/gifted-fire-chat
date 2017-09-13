@@ -19,14 +19,17 @@ export default class SignInScreen extends Component {
   }
 
   static navigationOptions = {
-    header: null
   }
 
   signIn() {
     this.props.screenProps.firebaseApp.auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {
-        this.props.navigation.navigate('BoardList');
+        const actionToDispatch = NavigationActions.reset({
+          index: 0,
+          actions: [NavigationActions.navigate({ routeName: 'Full' })]
+        })
+        this.props.navigation.dispatch(actionToDispatch)
       })
       .catch((error) => {
         console.log(error);

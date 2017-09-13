@@ -14,13 +14,39 @@ import {
   TouchableHighlight
 } from 'react-native';
 
+const OpenDrawer = ({ drawerNavigation }) => (
+  <View style={{ marginLeft: 10 }}>
+    <TouchableOpacity
+      onPress={() => { drawerNavigation.navigate('DrawerOpen') }}>
+      <MaterialIcons
+        name="menu"
+        size={24}
+        style={{ color: '#e91e63' }}
+      />
+    </TouchableOpacity>
+  </View>
+)
+
+const NewBoard = ({ navigation }) => (
+  <View style={{ marginRight: 10 }}>
+    <TouchableOpacity
+      onPress={() => { navigation.navigate('CreateBoard') }}>
+      <MaterialIcons
+        name="add-box"
+        size={24}
+        style={{ color: '#e91e63' }}
+      />
+    </TouchableOpacity>
+  </View>
+)
+
 export default class BoardsScreen extends Component {
   constructor(props) {
     super(props);
     this.boardsRef = props.screenProps.firebaseRef.child('boards');
   }
 
-  static navigationOptions = {
+  static navigationOptions = ({ navigation, screenProps }) => ({
     drawerLabel: 'Boards',
     drawerIcon: ({ tintColor }) => (
       <MaterialIcons
@@ -29,8 +55,10 @@ export default class BoardsScreen extends Component {
         style={{ color: tintColor }}
       />
     ),
-    header: null
-  };
+    title: 'Boards',
+    headerLeft: <OpenDrawer drawerNavigation={screenProps.drawerNavigation} />,
+    headerRight: <NewBoard navigation={navigation} />
+  });
 
   componentWillMount() {
     this.setState({ boards: [] });
@@ -55,26 +83,14 @@ export default class BoardsScreen extends Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <View style={styles.container}>
-        <BoardsNavBar banner={'Boards'} navigation={this.props.navigation} />
         <ScrollView>
           {this.state.boards.map((board) => {
             return <View key={board.key}>
               <TouchableHighlight style={styles.item}
                 onPress={() => {
-                  const navigationAction = NavigationActions.navigate({
-                    routeName: 'Stacks',
-                    action: NavigationActions.navigate({
-                      routeName: 'BoardView',
-                      params: {
-                        name: board.name,
-                        key: board.key
-                      }
-                    }),
-                  });
-                  this.props.navigation.dispatch(navigationAction);
+                  this.props.navigation.navigate('BoardView', { name: board.name, key: board.key });
                 }}>
                 <View>
                   <Text style={styles.title}>{board.name}</Text>
@@ -91,7 +107,6 @@ export default class BoardsScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: Platform.OS === 'ios' ? 20 : 0,
     flex: 1
   },
   item: {

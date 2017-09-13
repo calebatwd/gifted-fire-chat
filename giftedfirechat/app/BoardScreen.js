@@ -13,6 +13,7 @@ export default class BoardScreen extends Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: navigation.state.params.name + " Board",
   });
+
   render() {
     return (
       <View style={styles.container}>
@@ -26,7 +27,6 @@ export default class BoardScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: Platform.OS === 'ios' ? 20 : 0,
     flex: 1
   }
 });

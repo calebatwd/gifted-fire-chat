@@ -10,28 +10,15 @@ import NewBoardScreen from './NewBoardScreen'
 import BoardsScreen from './BoardsScreen'
 import ProfileScreen from './ProfileScreen'
 import SettingsScreen from './SettingsScreen'
+import SplashScreen from './SplashScreen'
 import Hidden from './Hidden'
 
-const SubNavigator = StackNavigator({
-  SignIn: {
-    path: './signin',
-    screen: SignInScreen
-  },
-  Register: {
-    path: './register',
-    screen: RegisterScreen
-  },
-  BoardView: {
-    path: './board',
-    screen: BoardScreen
-  },
-  CreateBoard: {
-    path: './createboard',
-    screen: NewBoardScreen
-  }
+const BoardsNavigator = StackNavigator({
+  BoardList: { screen: BoardsScreen },
+  BoardView: { screen: BoardScreen },
+  CreateBoard: { screen: NewBoardScreen }
 },
   {
-    initialRouteName: 'SignIn',
     headerMode: 'float',
     contentOptions: {
       activeTintColor: '#e91e63',
@@ -41,34 +28,35 @@ const SubNavigator = StackNavigator({
 
 const FullNavigator = DrawerNavigator({
   BoardList: {
-    path: '/boards',
-    screen: BoardsScreen
-  },
-  Profile: {
-    path: '/profile',
-    screen: ProfileScreen,
-  },
-  Settings: {
-    path: '/settings',
-    screen: SettingsScreen,
-  },
-  Stacks: {
-    path: './stacks',
-    screen: SubNavigator,
+    screen: ({ navigation, screenProps }) => <BoardsNavigator screenProps={{ drawerNavigation: navigation, ...screenProps }} />,
     navigationOptions: {
-      drawerLabel: <Hidden />
+      drawerLabel: 'Boards',
+      drawerIcon: ({ tintColor }) => (<MaterialIcons name="chat" size={24} style={{ color: tintColor }} />)
     }
-  }
+  },
+  Profile: { screen: ProfileScreen },
+  Settings: { screen: SettingsScreen }
 }, {
-    initialRouteName: 'Stacks',
+    initialRouteName: 'BoardList',
     contentOptions: {
       activeTintColor: '#e91e63',
     },
   }
 );
 
+const TopNavigator = StackNavigator({
+  Splash: { screen: SplashScreen },
+  SignIn: { screen: SignInScreen },
+  Register: { screen: RegisterScreen },
+  Full: { screen: ({ navigation, screenProps }) => <FullNavigator screenProps={{ rootNavigation: navigation, ...screenProps }} /> }
+}, {
+    initialRouteName: 'Splash',
+    headerMode: 'none'
+  }
+)
+
 export default class App extends Component {
   render() {
-    return <FullNavigator screenProps={this.props} />
+    return <TopNavigator screenProps={this.props} />
   }
 }

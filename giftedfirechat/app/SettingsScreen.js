@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { NavigationActions } from 'react-navigation';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import { CoreNavBar } from './CoreNavBar'
@@ -32,7 +33,7 @@ export default class SettingsScreen extends Component {
             NavigationActions.navigate({ routeName: 'SignIn' })
           ]
         })
-        this.props.navigation.dispatch(resetAction);
+        this.props.screenProps.rootNavigation.dispatch(resetAction);
       }).catch(function (error) {
         console.log(error);
         alert(error);
