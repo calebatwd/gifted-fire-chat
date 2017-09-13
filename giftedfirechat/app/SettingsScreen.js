@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
+import { CoreNavBar } from './CoreNavBar'
+
 import {
   View,
   Platform,

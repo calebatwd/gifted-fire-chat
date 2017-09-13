@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import Chat from './Chat'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
+import Chat from './Chat'
+
 import {
   StyleSheet
 } from 'react-native';

@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
 import { NavigationActions } from 'react-navigation'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
+import { BoardsNavBar } from './BoardsNavBar'
+
 import {
   View,
   Text,
+  Platform,
   ScrollView,
   TouchableOpacity,
   StyleSheet,

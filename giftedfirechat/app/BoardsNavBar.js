@@ -9,7 +9,7 @@ import {
   TouchableHighlight
 } from 'react-native';
 
-const BoardsNavBar = ({ navigation, banner }) => (
+export const BoardsNavBar = ({ navigation, banner }) => (
   <View style={styles.nav}>
     <View style={styles.navleft}>
       <TouchableOpacity
@@ -35,4 +35,26 @@ const BoardsNavBar = ({ navigation, banner }) => (
   </View>
 );
 
-export default <BoardsNavBar />
+const styles = StyleSheet.create({
+  nav: {
+    flexDirection: 'row',
+    height: 40,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: '#ddd',
+    justifyContent: 'space-between',
+  },
+  navleft: {
+    alignSelf: 'center',
+    marginLeft: 10,
+    width: 30
+  },
+  navbanner: {
+    alignSelf: 'center',
+    fontSize: 16,
+  },
+  navright: {
+    alignSelf: 'center',
+    marginRight: 10,
+    width: 30
+  }
+});
