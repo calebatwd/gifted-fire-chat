@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
-import AppNavigator from './app/groupme/AppNavigator';
 import App from './app/App'
 import {
   AppRegistry,
@@ -25,7 +24,7 @@ export default class giftedfirechat extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <AppNavigator firebaseRef={firebaseApp.database().ref()} firebaseApp={firebaseApp} />
+        <App firebaseRef={firebaseApp.database().ref()} firebaseApp={firebaseApp} />
       </View>
     );
   }

@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { GiftedChat } from 'react-native-gifted-chat';
 import firebase from 'firebase';
 
 export default class Chat extends Component {
   constructor(props) {
     super(props);
-    this.messagesRef = props.firebaseRef.child('boards/' + props.match.params.boardKey + '/messages');
+    this.messagesRef = props.boardRef.child('/messages');
   }
 
   componentWillMount() {
@@ -45,9 +45,9 @@ export default class Chat extends Component {
         messages={this.state.messages}
         onSend={(messages) => this.onSend(messages)}
         user={{
-          _id: 1,
-          name: 'Caleb',
-          avatar: 'https://facebook.github.io/react/img/logo_og.png',
+          _id: this.props.user.displayName,// this.props.user.uid,
+          name: this.props.user.displayName,
+          avatar: this.props.user.photoURL,
         }}
       />
     );
