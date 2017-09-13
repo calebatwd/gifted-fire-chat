@@ -38,18 +38,6 @@ export default class Boards extends Component {
     });
   }
 
-  onCreate(name) {
-    const board = {
-      name,
-      timestamp: firebase.database.ServerValue.TIMESTAMP,
-      lat: 1,
-      long: 1,
-      messages: []
-    };
-
-    this.boardsRef.push(board);
-  }
-
   render() {
     return (
       <View>

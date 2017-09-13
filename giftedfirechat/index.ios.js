@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
-import App from './app/App';
+import AppNavigator from './app/groupme/AppNavigator';
+import App from './app/App'
 import {
   AppRegistry,
   StyleSheet,
@@ -23,17 +24,11 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 export default class giftedfirechat extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <App firebaseApp={firebaseApp} />
+      <View style={{ flex: 1 }}>
+        <AppNavigator firebaseRef={firebaseApp.database().ref()} firebaseApp={firebaseApp} />
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  }
-});
 
 AppRegistry.registerComponent('giftedfirechat', () => giftedfirechat);

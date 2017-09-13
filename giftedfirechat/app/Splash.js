@@ -25,12 +25,14 @@ export default class Splash extends Component {
   render() {
     return <View style={styles.container}>
       <TouchableHighlight onPress={() => console.log('gmail')}>
-        <Text>Gmail</Text>
+        <Text style={styles.text}>Gmail</Text>
       </TouchableHighlight>
       <TouchableHighlight onPress={() => console.log('facebook')}>
-        <Text>Facebook</Text>
+        <Text style={styles.text}>Facebook</Text>
       </TouchableHighlight>
-      <Link to='/boards/'><Text>Just go to boards...</Text></Link>
+      <Link to='/boardTabs' replace>
+        <Text style={styles.text}>Just go to boards...</Text>
+      </Link>
     </View>
   }
 }
@@ -41,5 +43,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  text: {
+    fontSize: 20
   }
 });
