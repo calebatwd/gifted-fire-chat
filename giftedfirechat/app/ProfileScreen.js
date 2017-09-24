@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import ImagePicker from 'react-native-image-picker';
 import firebase from 'firebase'
+import { connect } from 'react-redux';
 import RNFetchBlob from 'react-native-fetch-blob'
 
 
@@ -51,10 +52,17 @@ const uploadImage = (uri, storage, mime = 'application/octet-stream') => {
   })
 }
 
-export default class ProfileScreen extends Component {
+const mapStateToProps = function (state) {
+  return {
+    firebase: state.firebase,
+  }
+}
+
+class ProfileScreen extends Component {
   constructor(props) {
     super(props);
-    const user = this.props.screenProps.firebaseApp.auth().currentUser;
+    console.log(props);
+    const user = this.props.firebase.auth().currentUser;
     this.state = {
       displayName: user.displayName || '',
       photoURL: user.photoURL,
@@ -77,14 +85,14 @@ export default class ProfileScreen extends Component {
     this.setState({ uploadURL: '' })
 
     ImagePicker.launchImageLibrary({}, response => {
-      uploadImage(response.uri, this.props.screenProps.firebaseApp.storage())
+      uploadImage(response.uri, this.props.firebase.storage())
         .then(url => this.setState({ uploadURL: url }))
         .catch(error => console.log(error))
     })
   }
 
   updateProfile() {
-    this.props.screenProps.firebaseApp.auth().currentUser.updateProfile({
+    this.props.firebase.auth().currentUser.updateProfile({
       displayName: this.state.displayName,
       photoURL: this.state.uploadURL
     }).then(() => {
@@ -132,6 +140,7 @@ export default class ProfileScreen extends Component {
     </View>
   }
 }
+export default connect(mapStateToProps, null)(ProfileScreen)
 
 const styles = StyleSheet.create({
   container: {

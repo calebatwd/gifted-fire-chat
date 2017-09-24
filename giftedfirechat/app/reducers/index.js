@@ -1,8 +1,10 @@
-export default (state = 0, action) => {
-  switch (action.type) {
-    case 'SETLOCATION':
-      return {}
-    default:
-      return state
-  }
-}
+import { combineReducers } from 'redux'
+import firebase from './firebase'
+import location from './location'
+
+const reducers = combineReducers({
+  firebase,
+  location
+})
+
+export default reducers

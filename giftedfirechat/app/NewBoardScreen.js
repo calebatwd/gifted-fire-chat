@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { NavigationActions } from 'react-navigation'
 import firebase from 'firebase'
+import { connect } from 'react-redux'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import {
@@ -14,11 +15,19 @@ import {
   TextInput
 } from 'react-native';
 
-export default class NewBoardScreen extends Component {
+const mapStateToProps = function (state) {
+  return {
+    location: state.location,
+    firebase: state.firebase
+  }
+}
+
+class NewBoardScreen extends Component {
   constructor(props) {
     super(props);
-    this.boardsRef = props.screenProps.firebaseRef.child('boards');
+    this.boardsRef = this.props.firebase.database().ref().child('boards');
     this.state = { text: '' }
+    console.log(this.props)
   }
 
   static navigationOptions = {
@@ -32,10 +41,7 @@ export default class NewBoardScreen extends Component {
     const board = {
       name,
       timestamp: firebase.database.ServerValue.TIMESTAMP,
-      coordinate: {
-        lattitude: this.props.location.lattitude,
-        longitude: this.props.location.longitude,
-      },
+      coordinate: this.props.location.coordinate,
       messages: []
     };
 
@@ -44,7 +50,7 @@ export default class NewBoardScreen extends Component {
     const resetAction = NavigationActions.reset({
       index: 1,
       actions: [
-        NavigationActions.navigate({ routeName: 'MainMenu' }),
+        NavigationActions.navigate({ routeName: 'BoardList' }),
         NavigationActions.navigate({
           routeName: 'BoardView', params: {
             name: board.name,
@@ -53,7 +59,8 @@ export default class NewBoardScreen extends Component {
         })
       ]
     })
-    this.props.rootNavigation.navigate('BoardList');
+
+    this.props.navigation.dispatch(resetAction);
   }
 
   render() {
@@ -67,6 +74,7 @@ export default class NewBoardScreen extends Component {
     </View>
   }
 }
+export default connect(mapStateToProps, null)(NewBoardScreen)
 
 const styles = StyleSheet.create({
   container: {

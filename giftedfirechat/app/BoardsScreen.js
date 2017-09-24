@@ -71,24 +71,10 @@ export default class BoardsScreen extends Component {
 
   componentDidMount() {
     this.listenForBoards(this.boardsRef);
-    this.watchId = navigator.geolocation.watchPosition(
-      (position) => {
-        this.setState({
-          location: {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            error: null,
-          }
-        });
-      },
-      (error) => this.setState({ location: { error: error.message } }),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000, distanceFilter: 10 },
-    );
   }
 
   componentWillUnmount() {
     this.stopListening(this.boardsRef);
-    navigator.geolocation.clearWatch(this.watchId);
   }
 
   stopListening(boardsRef) {
