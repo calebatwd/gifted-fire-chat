@@ -25,9 +25,9 @@ export default class SplashScreen extends Component {
   render() {
     return <View style={styles.container}>
       <Image style={styles.background} source={require('../img/splash.jpg')} >
-        <View style={styles.centered}>
-          <Button color="#841584" onPress={() => this.continue()} title='Continue' />
-        </View>
+        <TouchableOpacity style={styles.centered} onPress={() => this.continue()} >
+          <Text style={styles.text}>Continue</Text>
+        </TouchableOpacity>
       </Image>
     </View>
   }
@@ -44,6 +44,11 @@ const styles = StyleSheet.create({
     height: undefined
   },
   centered: {
-    flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'
+    flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', margin: 100
+  },
+  text: {
+    fontSize: 34,
+    backgroundColor: 'transparent',
+    color: 'white'
   }
 });

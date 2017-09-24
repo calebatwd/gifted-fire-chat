@@ -32,8 +32,10 @@ export default class NewBoardScreen extends Component {
     const board = {
       name,
       timestamp: firebase.database.ServerValue.TIMESTAMP,
-      lat: 1,
-      long: 1,
+      coordinate: {
+        lattitude: this.props.location.lattitude,
+        longitude: this.props.location.longitude,
+      },
       messages: []
     };
 

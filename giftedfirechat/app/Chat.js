@@ -37,6 +37,7 @@ export default class Chat extends Component {
     };
 
     this.messagesRef.push(message);
+    this.props.boardRef.child('/lastMessage').set(message)
   }
 
   render() {
@@ -45,7 +46,7 @@ export default class Chat extends Component {
         messages={this.state.messages}
         onSend={(messages) => this.onSend(messages)}
         user={{
-          _id: this.props.user.displayName,// this.props.user.uid,
+          _id: this.props.user.uid,
           name: this.props.user.displayName,
           avatar: this.props.user.photoURL,
         }}
