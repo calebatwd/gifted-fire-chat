@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { NavigationActions } from 'react-navigation';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { connect } from 'react-redux'
 
 import {
   Platform,
@@ -13,7 +14,13 @@ import {
   TextInput
 } from 'react-native';
 
-export default class RegisterScreen extends Component {
+const mapStateToProps = function (state) {
+  return {
+    firebase: state.firebase,
+  }
+}
+
+class RegisterScreen extends Component {
   state = {
     email: '',
     password: ''
@@ -24,7 +31,7 @@ export default class RegisterScreen extends Component {
   }
 
   register() {
-    this.props.screenProps.firebaseApp.auth()
+    this.props.firebase.auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {
         const resetAction = NavigationActions.reset({
@@ -62,6 +69,8 @@ export default class RegisterScreen extends Component {
     </View>
   }
 }
+
+export default connect(mapStateToProps, null)(RegisterScreen)
 
 const styles = StyleSheet.create({
   container: {

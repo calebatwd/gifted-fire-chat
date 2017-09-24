@@ -57,6 +57,6 @@ const TopNavigator = StackNavigator({
 
 export default class App extends Component {
   render() {
-    return <TopNavigator screenProps={this.props} />
+    return <TopNavigator />
   }
 }

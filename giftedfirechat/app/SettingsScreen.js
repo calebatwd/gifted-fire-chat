@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { NavigationActions } from 'react-navigation';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { connect } from 'react-redux'
 
 import { CoreNavBar } from './CoreNavBar'
 
@@ -16,7 +17,13 @@ import {
   TextInput
 } from 'react-native';
 
-export default class SettingsScreen extends Component {
+const mapStateToProps = function (state) {
+  return {
+    firebase: state.firebase,
+  }
+}
+
+class SettingsScreen extends Component {
   static navigationOptions = {
     drawerLabel: 'Settings',
     drawerIcon: ({ tintColor }) => (
@@ -25,7 +32,7 @@ export default class SettingsScreen extends Component {
   };
 
   signOut() {
-    this.props.screenProps.firebaseApp.auth().signOut()
+    this.props.firebase.auth().signOut()
       .then(() => {
         const resetAction = NavigationActions.reset({
           index: 0,
@@ -47,6 +54,7 @@ export default class SettingsScreen extends Component {
     </View>
   }
 }
+export default connect(mapStateToProps, null)(SettingsScreen)
 
 const styles = StyleSheet.create({
   container: {

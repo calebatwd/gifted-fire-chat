@@ -52,7 +52,7 @@ export default class giftedfirechat extends Component {
 
     return (
       <Provider store={store}>
-        <App firebaseRef={firebaseApp.database().ref()} firebaseApp={firebaseApp} />
+        <App />
       </Provider>
     );
   }

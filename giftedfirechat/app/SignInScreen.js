@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { NavigationActions } from 'react-navigation';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { connect } from 'react-redux'
 import {
   Platform,
   View,
@@ -12,7 +13,13 @@ import {
   TextInput
 } from 'react-native';
 
-export default class SignInScreen extends Component {
+const mapStateToProps = function (state) {
+  return {
+    firebase: state.firebase,
+  }
+}
+
+class SignInScreen extends Component {
   state = {
     email: 'trekker272@live.com',
     password: 'sunfish02'
@@ -22,7 +29,7 @@ export default class SignInScreen extends Component {
   }
 
   signIn() {
-    this.props.screenProps.firebaseApp.auth()
+    this.props.firebase.auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {
         const actionToDispatch = NavigationActions.reset({
@@ -59,6 +66,7 @@ export default class SignInScreen extends Component {
     </View>
   }
 }
+export default connect(mapStateToProps, null)(SignInScreen)
 
 const styles = StyleSheet.create({
   container: {

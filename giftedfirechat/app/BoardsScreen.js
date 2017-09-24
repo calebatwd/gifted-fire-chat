@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { NavigationActions } from 'react-navigation'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { connect } from 'react-redux'
 
 import Map from './Map'
 import { BoardsNavBar } from './BoardsNavBar'
@@ -41,10 +42,16 @@ const NewBoard = ({ navigation, locationFunc }) => (
   </View>
 )
 
-export default class BoardsScreen extends Component {
+const mapStateToProps = function (state) {
+  return {
+    firebase: state.firebase
+  }
+}
+
+class BoardsScreen extends Component {
   constructor(props) {
     super(props);
-    this.boardsRef = props.screenProps.firebaseRef.child('boards');
+    this.boardsRef = props.firebase.database().ref().child('boards');
     this.state = {
       location: {
         latitude: null,
@@ -137,6 +144,7 @@ export default class BoardsScreen extends Component {
     );
   }
 }
+export default connect(mapStateToProps, null)(BoardsScreen)
 
 const styles = StyleSheet.create({
   container: {

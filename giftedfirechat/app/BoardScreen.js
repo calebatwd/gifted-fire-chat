@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { connect } from 'react-redux'
 
 import Chat from './Chat'
 
@@ -9,7 +10,13 @@ import {
   View
 } from 'react-native';
 
-export default class BoardScreen extends Component {
+const mapStateToProps = function (state) {
+  return {
+    firebase: state.firebase
+  }
+}
+
+class BoardScreen extends Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: navigation.state.params.name + " Board",
   });
@@ -18,12 +25,13 @@ export default class BoardScreen extends Component {
     return (
       <View style={styles.container}>
         <Chat
-          boardRef={this.props.screenProps.firebaseRef.child('boards/' + this.props.navigation.state.params.key)}
-          user={this.props.screenProps.firebaseApp.auth().currentUser} />
+          boardRef={this.props.firebase.database().ref().child('boards/' + this.props.navigation.state.params.key)}
+          user={this.props.firebase.auth().currentUser} />
       </View>
     );
   }
 }
+export default connect(mapStateToProps, null)(BoardScreen)
 
 const styles = StyleSheet.create({
   container: {
