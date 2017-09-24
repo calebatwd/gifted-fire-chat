@@ -111,7 +111,7 @@ class ProfileScreen extends Component {
             (() => {
               switch (this.state.uploadURL) {
                 case null:
-                  return null
+                  return (<Button style={{ margin: 50 }} title='Upload an Avatar' onPress={() => this._pickImage()} />)
                 case '':
                   return <ActivityIndicator />
                 default:
@@ -135,8 +135,8 @@ class ProfileScreen extends Component {
             placeholder={'User name'}
           />
         </View>
+        <Button style={{ margin: 50 }} title='Save' onPress={() => this.updateProfile()} />
       </View>
-      <Button style={{}} title='Save' onPress={() => this.updateProfile()} />
     </View>
   }
 }

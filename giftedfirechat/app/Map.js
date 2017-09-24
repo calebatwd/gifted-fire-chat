@@ -32,14 +32,14 @@ class Map extends Component {
           initialRegion={{
             latitude: this.props.location.coordinate.latitude,
             longitude: this.props.location.coordinate.longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
+            latitudeDelta: 0.0922 / 2,
+            longitudeDelta: 0.0421 / 2,
           }} >
           {this.props.boards.map((board) => {
             return <MapView.Marker
               coordinate={{ latitude: board.coordinate.latitude, longitude: board.coordinate.longitude }}
               title={board.name}
-              description={"test"}
+              description={board.lastMessage ? board.lastMessage.user.name + ': ' + board.lastMessage.text : ''}
             />
           })}
         </MapView>

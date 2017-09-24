@@ -83,7 +83,6 @@ const styles = StyleSheet.create({
   },
   textInput: {
     height: 50,
-    width: 250,
     textAlign: 'center'
   }
 });

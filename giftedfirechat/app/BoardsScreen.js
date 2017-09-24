@@ -127,13 +127,7 @@ class BoardsScreen extends Component {
                 <View>
                   <Text style={styles.title}>{board.name}</Text>
                   <Text style={styles.description}>
-                    {
-                      (() => {
-                        if (board.lastMessage) {
-                          return board.lastMessage.user.name + ': ' + board.lastMessage.text
-                        }
-                      })()
-                    }
+                    {board.lastMessage ? board.lastMessage.user.name + ': ' + board.lastMessage.text : ''}
                   </Text>
                 </View>
               </TouchableHighlight>

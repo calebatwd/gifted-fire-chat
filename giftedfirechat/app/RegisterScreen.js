@@ -77,4 +77,9 @@ const styles = StyleSheet.create({
     marginTop: Platform.OS === 'ios' ? 20 : 0,
     flex: 1
   },
+  textInput: {
+    height: 50,
+    width: 250,
+    textAlign: 'center'
+  },
 });
